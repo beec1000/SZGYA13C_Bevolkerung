@@ -100,7 +100,15 @@ namespace SZGYA13C_Bevolkerung
                 {
                     SorFogyasztasEvente = int.Parse(b[13]);
                 }
-                int KrumpliFogyasztasEvente = int.Parse(b[14]);
+                int KrumpliFogyasztasEvente;
+                if(b[14] == "NA")
+                {
+                    KrumpliFogyasztasEvente= 0;
+                }
+                else
+                {
+                    KrumpliFogyasztasEvente = int.Parse(b[14]);
+                }
 
                 Bevolkerung bevolkerungs = new(Id, Nem, SzuletesiEv, Suly, Magassag, Dohanyzik, Nemzetiseg, Nepcsoport, Tartomany, NettoJovedelem, IskolaiVegzettseg, PolitikaiNezet, AktivSzavazo, SorFogyasztasEvente, KrumpliFogyasztasEvente);
                 bevolkerung.Add(bevolkerungs);

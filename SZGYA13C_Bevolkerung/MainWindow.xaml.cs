@@ -20,9 +20,11 @@ namespace SZGYA13C_Bevolkerung
         {
             InitializeComponent();
 
-            bevolkerung = Bevolkerung.FromFile(@"..\..\..\src\benölkerung.txt");
+            bevolkerung = Bevolkerung.FromFile("..\\..\\..\\src\\bevölkerung.txt");
 
-            lb.Content = bevolkerung.Count();
+            lb1.Content = bevolkerung.Count();
+
+            lb2.Content = bevolkerung.First().ToString().Replace(',', ' ').Replace("True", "Igen").Replace("False", "Nem");
         }
     }
 }
