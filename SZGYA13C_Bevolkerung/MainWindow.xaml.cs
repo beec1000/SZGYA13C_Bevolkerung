@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Reflection;
 
 namespace SZGYA13C_Bevolkerung
 {
@@ -22,9 +23,78 @@ namespace SZGYA13C_Bevolkerung
 
             bevolkerung = Bevolkerung.FromFile("..\\..\\..\\src\\bevölkerung.txt");
 
-            lb1.Content = bevolkerung.Count();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            for (int i = 1; i <= 40; i++)
+            {
+                ComboBoxFeladatok.Items.Add(i.ToString());
+            }
 
-            lb2.Content = bevolkerung.First().ToString().Replace(',', ' ').Replace("True", "Igen").Replace("False", "Nem");
+            ComboBoxFeladatok.SelectedIndex = 0;
+        }
+
+        private void ComboBoxFeladatok_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MegoldasMondatos.Content = string.Empty;
+            MegoldasTeljes.Items.Clear();
+            MegoldasLista.Items.Clear();
+
+            int feladatSzam = int.Parse(ComboBoxFeladatok.SelectedItem.ToString());
+            ValaszthatFeladat(feladatSzam);
+        }
+
+        private void ValaszthatFeladat(int selectedTask)
+        {
+            var methodName = $"Feladat{selectedTask}";
+            var method = GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            method?.Invoke(this, null);
+        }
+
+        private void Feladat1()
+        {
+            foreach (var allampolgar in lista)
+            {
+                MegoldasTeljes.Items.Add(allampolgar.ToString(false));
+            }
+        }
+
+        private void Feladat2()
+        {
+            foreach (var allampolgar in lista)
+            {
+                MegoldasLista.Items.Add($"{allampolgar.Nev}: {allampolgar.GetEletkor()} év");
+            }
+        }
+
+        private void Feladat3()
+        {
+            foreach (var allampolgar in lista)
+            {
+                if (allampolgar.Sorfogyaszt)
+                {
+                    MegoldasLista.Items.Add($"{allampolgar.Nev}: Igen");
+                }
+                else
+                {
+                    MegoldasLista.Items.Add($"{allampolgar.Nev}: Nem");
+                }
+            }
+        }
+
+        private void Feladat4()
+        {
+            foreach (var allampolgar in lista)
+            {
+                if (allampolgar.Krumplifogyaszt)
+                {
+                    MegoldasLista.Items.Add($"{allampolgar.Nev}: Igen");
+                }
+                else
+                {
+                    MegoldasLista.Items.Add($"{allampolgar.Nev}: Nem");
+                }
+            }
         }
     }
 }

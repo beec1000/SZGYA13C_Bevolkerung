@@ -44,6 +44,28 @@ namespace SZGYA13C_Bevolkerung
             KrumpliFogyasztasEvente = krumpliFogyasztasEvente;
         }
 
+        public int HaviNetto()
+        {
+            return NettoJovedelem / 12;
+        }
+
+        public int Kor()
+        {
+            return DateTime.Now.Year - SzuletesiEv;
+        }
+
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+            {
+                return $"{Id}\t{Nem}\t{SzuletesiEv}\t{Suly}\t{Magassag}";
+            }
+            else
+            {
+                return $"{Id}\t{Nemzetiseg}\t{Nepcsoport}\t{Tartomany}\t{NettoJovedelem}";
+            }
+        }
+
         public static List<Bevolkerung> FromFile(string path)
         {
             List<Bevolkerung> bevolkerung = new List<Bevolkerung>();
