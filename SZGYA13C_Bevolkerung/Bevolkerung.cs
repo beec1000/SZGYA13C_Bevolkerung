@@ -25,7 +25,7 @@ namespace SZGYA13C_Bevolkerung
         public int SorFogyasztasEvente { get; set; } //NA ha nincs adat
         public int KrumpliFogyasztasEvente { get; set; }
 
-        public Bevolkerung (int id, string nem, int szuletesiEv, int suly, int magassag, bool dohanyzik, string nemzetiseg, string nepcsoport, string tartomany, int nettoJovedelem, string iskolaiVegzettseg, string politikaiNezet, bool aktivSzavazo, int sorFogyasztasEvente, int krumpliFogyasztasEvente)
+        public Bevolkerung(int id, string nem, int szuletesiEv, int suly, int magassag, bool dohanyzik, string nemzetiseg, string nepcsoport, string tartomany, int nettoJovedelem, string iskolaiVegzettseg, string politikaiNezet, bool aktivSzavazo, int sorFogyasztasEvente, int krumpliFogyasztasEvente)
         {
             Id = id;
             Nem = nem;
@@ -52,18 +52,6 @@ namespace SZGYA13C_Bevolkerung
         public int Kor()
         {
             return DateTime.Now.Year - SzuletesiEv;
-        }
-
-        public string ToString(bool detailed)
-        {
-            if (detailed)
-            {
-                return $"{Id}\t{Nem}\t{SzuletesiEv}\t{Suly}\t{Magassag}";
-            }
-            else
-            {
-                return $"{Id}\t{Nemzetiseg}\t{Nepcsoport}\t{Tartomany}\t{NettoJovedelem}";
-            }
         }
 
         public static List<Bevolkerung> FromFile(string path)
@@ -123,9 +111,9 @@ namespace SZGYA13C_Bevolkerung
                     SorFogyasztasEvente = int.Parse(b[13]);
                 }
                 int KrumpliFogyasztasEvente;
-                if(b[14] == "NA")
+                if (b[14] == "NA")
                 {
-                    KrumpliFogyasztasEvente= 0;
+                    KrumpliFogyasztasEvente = 0;
                 }
                 else
                 {
@@ -142,6 +130,16 @@ namespace SZGYA13C_Bevolkerung
         {
             return $"{Id},{Nem},{SzuletesiEv},{Suly},{Magassag},{Dohanyzik},{Nemzetiseg},{Nepcsoport},{Tartomany},{NettoJovedelem},{IskolaiVegzettseg},{PolitikaiNezet},{AktivSzavazo},{SorFogyasztasEvente},{KrumpliFogyasztasEvente}";
         }
-
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+            {
+                return $"{Id}\t{Nem}\t{SzuletesiEv}\t{Suly}\t{Magassag}";
+            }
+            else
+            {
+                return $"{Id}\t{Nemzetiseg}\t{Nepcsoport}\t{Tartomany}\t{NettoJovedelem}";
+            }
+        }
     }
 }
